@@ -11,6 +11,7 @@ int mbot_calculate_odometry (serial_twist20_t mbot_vel, float dt, serial_pose2D_
   odometry -> x += vx_space * dt;
   odometry -> y += vy_space * dt;
   //odometry -> theta += mbot_vel.wz * dt;
+  //use IMU data directly more accurate
   odometry -> theta = imu->angles_rpy[2];
 
   //ensure theta is within pi to -pi
