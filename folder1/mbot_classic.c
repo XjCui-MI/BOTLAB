@@ -38,6 +38,9 @@ int main() {
       MAIN_LOOP_PERIOD * If_mult,
     },
 };
+
+//initialize the PID controller
+mbot_init_ctlr(ctlr_cfg);
   
 
 
