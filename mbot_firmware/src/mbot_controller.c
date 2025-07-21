@@ -43,9 +43,9 @@ int mbot_init_ctlr (mbot_ctlr_cfg_t ctlr_cfg) {
     return 0;
 }
 
-//Body Velocity PID Controller
-//Output the desired command angular velocities for the motors
-int mbot_ctlr(serial_twist2D_t vel_cmd, serial_twist2D_t vel, serial_mbot_motor_vel_t *mbot_motor_vel) 
+//Use the Body velocity and Body angular velocity to 
+//Output the desired command angular velocities for the left and right wheel motors
+int mbot_ctlr(serial_twist2D_t vel_cmd, serial_twist2D_t vel, serial_mbot_motor_vel_t *mbot_motor_vel) {
     // Implement the Angular Velocity Estimator and PID controller for angular velocity.
     float vel_wz_lp = rc_filter_march(&mbot_vel_wz_lpf, vel.wz);
     float vel_cmd_wz = vel_cmd.wz + rc_filter_march(&mbot_wz_pid, vel_cmd.wz - vel_wz_lp);
@@ -60,7 +60,7 @@ int mbot_ctlr(serial_twist2D_t vel_cmd, serial_twist2D_t vel, serial_mbot_motor_
     return 0;
 }
 
-//Left and Right Motor Velocities PID Controller; 
+//Left and Right Wheel Motor Velocities PID Controller; 
 //Given desired wheel velocity and actual wheel velocity 
 int mbot_motor_vel_ctlr(serial_mbot_motor_vel_t vel_cmd, serial_mbot_motor_vel_t vel, serial_mbot_motor_pwm_t *mbot_motor_pwm) {
     //find the errors by command - actual motor reading
